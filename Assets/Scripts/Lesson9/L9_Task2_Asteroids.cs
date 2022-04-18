@@ -1,21 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
 
-public class Asteroids : MonoBehaviour
+public class L9_Task2_Asteroids : MonoBehaviour
 {
-    private struct Asteroid
-    {
-        public Transform Transform;
-        public float CurrentAngle;
-        public float Distance;
-        public Vector3 Rotation;
-    }
-
-    [SerializeField] private Mesh mesh;
+     [SerializeField] private Mesh mesh;
     [SerializeField] private Material material;
     
     [SerializeField] private Transform _aroundPoint;
@@ -27,9 +17,8 @@ public class Asteroids : MonoBehaviour
     [SerializeField] private float _maxScale;
     [SerializeField] private float _rotationSpeed;
 
-    private Asteroid[] _asteroids;
-
-    [SerializeField] private float _circleInSecond = 1f;
+    [SerializeField, Min(0.01f)] private float _minCircleInSecond = 1f;
+    [SerializeField, Min(0.01f)] private float _maxCircleInSecond = 1f;
 
     private const float _circleRadians = Mathf.PI * 2;
 
@@ -40,28 +29,13 @@ public class Asteroids : MonoBehaviour
     private float[] _circleInSeconds;
     private Vector3[] _rotations;
 
-    // Start is called before the first frame update
     void Start()
     {
         CreateAsteroids();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //for (int i = 0; i < _asteroids.Length; i++)
-        //{
-        //    var p = _aroundPoint.position;
-        //    p.x += Mathf.Sin(_asteroids[i].CurrentAngle) * _asteroids[i].Distance;
-        //    p.z += Mathf.Cos(_asteroids[i].CurrentAngle) * _asteroids[i].Distance;
-        //    _asteroids[i].Transform.position = p;
-        //    _asteroids[i].CurrentAngle += _circleRadians * _circleInSecond * Time.deltaTime;
-
-        //    var r = _asteroids[i].Transform.rotation.eulerAngles;
-        //    r += _asteroids[i].Rotation * Time.deltaTime * _rotationSpeed;
-        //    _asteroids[i].Transform.rotation = Quaternion.Euler(r);
-        //}
-
         CalculateMovement();
         ApplyMovement();
     }
@@ -124,8 +98,6 @@ public class Asteroids : MonoBehaviour
 
     private void CreateAsteroids()
     {
-        //_asteroids = new Asteroid[_asteroidAmount];
-
         Transform[] transforms = new Transform[_asteroidAmount];
 
         _positions = new Vector3[_asteroidAmount];
@@ -157,15 +129,7 @@ public class Asteroids : MonoBehaviour
             _positions[i] = go.transform.position;
             _rotations[i] = Random.insideUnitSphere;
             _currentAngels[i] = angle;
-            _circleInSeconds[i] = _circleInSecond;
-
-            //_asteroids[i] = new Asteroid
-            //{
-            //    Transform = go.transform,
-            //    Distance = (_aroundPoint.position - go.transform.position).magnitude,
-            //    CurrentAngle = angle,
-            //    Rotation = Random.insideUnitSphere
-            //};
+            _circleInSeconds[i] = _minCircleInSecond < _maxCircleInSecond ? Random.Range(_minCircleInSecond, _maxCircleInSecond) : Random.Range(_maxCircleInSecond, _minCircleInSecond);
 
             transforms[i] = go.transform;
         }

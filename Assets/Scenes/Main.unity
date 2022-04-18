@@ -1449,15 +1449,14 @@ MonoBehaviour:
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: a85a1d1bef60c8f4cbd9d3bb683068d2, type: 2}
   _aroundPoint: {fileID: 15773211}
-  _asteroidAmount: 100
+  _asteroidAmount: 500
   _beltRadius: 100
   _beltWidth: 50
   _minScale: 1
   _maxScale: 5
-  _spinSpeed: 100
-  _circleInSecond: 0.1
-  _offsetSin: 1
-  _offsetCos: 1
+  _rotationSpeed: 100
+  _minCircleInSecond: 0.05
+  _maxCircleInSecond: 0.25
 --- !u!4 &1045919870
 Transform:
   m_ObjectHideFlags: 0
