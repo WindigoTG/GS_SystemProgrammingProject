@@ -10,6 +10,7 @@ namespace Lesson10
         private SerializedProperty _points;
         private SerializedProperty _frequency;
 
+
         private void OnEnable()
         {
             _center = serializedObject.FindProperty("_center");
@@ -39,12 +40,7 @@ namespace Lesson10
                 MessageType.Info);
             }
 
-            //serializedObject.ApplyModifiedProperties();
-
-            if (!serializedObject.ApplyModifiedProperties() && (Event.current.type != EventType.ExecuteCommand || Event.current.commandName != "UndoRedoPerformed"))
-            {
-                return;
-            }
+            serializedObject.ApplyModifiedProperties();
 
             foreach (var obj in targets)
             {
@@ -68,7 +64,7 @@ namespace Lesson10
             {
                 var rotation = Quaternion.Euler(0f, 0f, angle * i);
                 var oldPoint = starTransform.TransformPoint(rotation * star.Points[i].Position);
-                var newPoint = Handles.FreeMoveHandle(oldPoint, Quaternion.identity, 0.02f, Vector3.zero/*_pointSnap*/, Handles.DotHandleCap);
+                var newPoint = Handles.FreeMoveHandle(oldPoint, Quaternion.identity, 0.02f, Vector3.zero, Handles.DotHandleCap);
 
                 if (oldPoint == newPoint)
                 {
