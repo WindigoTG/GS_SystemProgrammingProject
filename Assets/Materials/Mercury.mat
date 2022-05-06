@@ -67,7 +67,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Height: 0
+    - _Height: 0.04
+    - _MainTexIntensity: 0.35
     - _Metallic: 0
     - _Mode: 0
     - _Mountains: 0.25
@@ -81,10 +82,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.5754717, g: 0.389756, b: 0.17101282, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.20754719, g: 0.14120805, b: 0.10083661, a: 1}
-    - _MountCol: {r: 1, g: 1, b: 1, a: 1}
-    - _OceanCol: {r: 1, g: 1, b: 1, a: 1}
-    - _PlainCol: {r: 1, g: 1, b: 1, a: 1}
+    - _MountCol: {r: 0.9339623, g: 0.58255476, b: 0.21586865, a: 1}
+    - _OceanCol: {r: 0.509434, g: 0.22644123, b: 0.0504628, a: 1}
+    - _PlainCol: {r: 0.8207547, g: 0.4120428, b: 0.05032932, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

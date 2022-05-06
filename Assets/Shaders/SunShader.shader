@@ -1,10 +1,9 @@
-Shader "Custom/PlanetShader"
+Shader "Custom/SunShader"
 {
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _MainTexIntensity("Texture Intensity", Range(0,1)) = 1
         _Height("Height", Range(-1,1)) = 0
         _Mountains("Mountains", Range(0, 0.45)) = 0.25
         _Oceans("Oceans", Range(0, 0.45)) = 0.25
@@ -43,7 +42,6 @@ Shader "Custom/PlanetShader"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _MainTexIntensity;
             fixed4 _Color;
             float _Height;
             float _Seed;
@@ -92,31 +90,6 @@ Shader "Custom/PlanetShader"
                 return result;
             }
 
-            float3 DiffuseLight(int index, float3 normal, float3 worldPos)
-            {
-                float3 lightColor = _VisibleLightColors[index].rgb;
-                float4 lightPositionOrDirection = _VisibleLightDirectionsOrPositions[index];
-                float4 lightAttenuation = _VisibleLightAttenuations[index];
-                float3 spotDirection = _VisibleLightSpotDirections[index].xyz;
-
-                float3 lightVector = lightPositionOrDirection.xyz - worldPos * lightPositionOrDirection.w;
-                float3 lightDirection = normalize(lightVector);
-                float diffuse = saturate(dot(normal, lightDirection));
-
-                float rangeFade = dot(lightVector, lightVector) * lightAttenuation.x;
-                rangeFade = saturate(1.0 - rangeFade * rangeFade);
-                rangeFade *= rangeFade;
-
-                float spotFade = dot(spotDirection, lightDirection);
-                spotFade = saturate(spotFade * lightAttenuation.z + lightAttenuation.w);
-                spotFade *= spotFade;
-
-                float distanceSqr = max(dot(lightVector, lightVector), 0.00001);
-                //diffuse *= spotFade;// *rangeFade / distanceSqr;
-
-                return diffuse * lightColor;
-            }
-
             v2f vert(appdata v)
             {
                 v2f o;
@@ -144,8 +117,7 @@ Shader "Custom/PlanetShader"
                 i.normal = normalize(i.normal);
 
 
-                fixed4 color = tex2D(_MainTex, i.uv) * _MainTexIntensity;
-                color += (1, 1, 1, 1) * (1 - _MainTexIntensity);
+                fixed4 color = tex2D(_MainTex, i.uv) * _Color;
                 
                 float height = i.height.x;
 
@@ -162,17 +134,8 @@ Shader "Custom/PlanetShader"
                     color *= _MountCol;
                 }
 
-                color* _Color;
 
-                //return color * i.diff;
-
-                float3 diffuseLight = 0;
-                for (int j = 0; j < MAX_VISIBLE_LIGHTS; j++) 
-                {
-                    diffuseLight += DiffuseLight(j, i.normal, i.worldPos);
-                }
-
-                return color * float4(diffuseLight, 1);
+                return color;
             }
             ENDCG
         }

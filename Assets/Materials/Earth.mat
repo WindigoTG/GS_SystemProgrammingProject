@@ -86,13 +86,14 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _Height: 0
+    - _MainTexIntensity: 0.35
     - _Metallic: 0
     - _Mode: 0
-    - _Mountains: 0.25
+    - _Mountains: 0.288
     - _OcclusionStrength: 1
-    - _Oceans: 0.25
+    - _Oceans: 0.385
     - _Parallax: 0.08
-    - _Seed: 10
+    - _Seed: 1879
     - _Shininess: 470
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -102,8 +103,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MountCol: {r: 1, g: 1, b: 1, a: 1}
-    - _OceanCol: {r: 1, g: 1, b: 1, a: 1}
-    - _PlainCol: {r: 1, g: 1, b: 1, a: 1}
+    - _MountCol: {r: 0.8018868, g: 0.23307356, b: 0, a: 1}
+    - _OceanCol: {r: 0, g: 0.032721262, b: 0.8018868, a: 1}
+    - _PlainCol: {r: 0.072372146, g: 0.745283, b: 0, a: 1}
     - _SpecularColour: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
